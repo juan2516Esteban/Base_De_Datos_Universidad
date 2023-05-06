@@ -126,42 +126,99 @@ INSERT INTO Municipios (municipio, departamento) VALUES
 
 ----------------------------------------Fabian-------------------------------------------------
 
-CREATE TABLE victimas (
-id_victimas int serial,
-    PRIMARY KEY(id_victimas),
-nombre_victimas varchar(150) NOT NULL
-)
-INSERT INTO `victimas`(`id_victimas`, `nombre_victimas`) VALUES ('1','poblacion victimas del conflicto'), ('2','poblacion con discapacidad'),('3','poblacion adulta mayor'),('4','genero'),('5','poblacion situacion de calle'),('6','poblacion etnica'),('7','poblacion migrante'),('8','ninguno')
+--------------------------------VICTIMAS--------------------------------
+CREATE TABLE victimas(
+	id_victimas SERIAL PRIMARY KEY,
+	nombre_victimas varchar(150) NOT NULL
+);
 
-CREATE TABLE bono_alimenticio(
-id_bono_alimenticio int NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY(id_bono_alimenticio),
-valor_bono int NOT NULL
-)
-INSERT INTO `bono_alimenticio`(`id_bono_alimenticio`, `valor_bono`) VALUES ('1','3000'),('2','5000'),('3','8000'),('4','0')
+INSERT INTO victimas (nombre_victimas)
+VALUES ('poblacion victimas del conflicto'), 
+('poblacion con discapacidad'),
+('poblacion adulta mayor'),
+('genero'),
+('poblacion situacion de calle'),
+('poblacion etnica'),
+('poblacion migrante'),
+('ninguno');
 
-CREATE TABLE asignatura(
-id_asignatura int NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY(id_asignatura),
-nombre_asignatura varchar(150) NOT NULL
-)
-INSERT INTO `asignatura`(`id_asignatura`, `nombre_asignatura`) VALUES ('1','calculo i'),('2','calculo ii'),('3','calculo iii'),('4','calculo iv'),('5','programacion i'),('6','programacion ii'),('7','programacion iii'),('8','programacion iv'),('9','estructura de datos '),('10','patrones de diseño'),('11','entornos de desarrollo de software'),('12','estadistica '),('13','bases de datos'),('14','programacion web'),('15','programacion movil')
+--------------------------------BONO ALIMENTICIO--------------------------------
 
-CREATE TABLE carrera(
-id_carrera int NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY(id_carrera),
-nombre_carrera varchar(150) NOT NULL
-)
-INSERT INTO `carrera`(`id_carrera`, `nombre_carrera`) VALUES ('1','ingenieria electrica'),('2','ingeniera mecatronica'),('3','ingenieria de sistemas '),('4','ingenieria industrial'),('5','ingenieria biomedica'),('6','ingenieria aeronautica'),('7','ingeniera quimica '),('8','ingeniera fisica'),('9','ingenieria mecanica '),('10','ingenieria electronica'),('11','ingeniera agricola '),('12','ingeniera de maderas'),('13','ingenieria agroindustrial'),('14','ingenieria civil '),('15','ingeneria Software'),('16','licenciatura en matematicas'),('17','licenciatura en estadistica'),('18','licenciatura en astronomia'),('19','contabilidad'),('20','administracion de empresas'),('21','marketing '),('22','negocios internacionales')
+CREATE TABLE bono_alimenticio (
+    id_bono_alimenticio SERIAL PRIMARY KEY,
+    valor_bono integer NOT NULL
+);
 
-CREATE TABLE grupo_etnico(
-id_grupo_etnico int NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY(id_grupo_etnico),
-nombre_etnico varchar(150) NOT NULL
-)
-INSERT INTO `grupo_etnico`(`id_grupo_etnico`, `nombre_etnico`) VALUES ('1','indigena
-'),('2','afrocolombi@'),('3','raizal'),('4','palenquero'),('5','gitano'),('6','ninguno')
+INSERT INTO bono_alimenticio (valor_bono)
+VALUES (3000), (5000), (8000), (0);
 
+--------------------------------ASIGNATURAS--------------------------------
 
+CREATE TABLE asignatura (
+    id_asignatura SERIAL PRIMARY KEY,
+    nombre_asignatura varchar(150) NOT NULL
+);
 
+INSERT INTO asignatura (nombre_asignatura)
+VALUES ('calculo i'),
+('calculo ii'),
+('calculo iii'),
+('calculo iv'),
+('programacion i'),
+('programacion ii'),
+('programacion iii'),
+('programacion iv'),
+('estructura de datos'),
+('patrones de diseño'),
+('entornos de desarrollo de software'),
+('estadistica'),
+('bases de datos'),
+('programacion web'),
+('programacion movil');
+
+--------------------------------CARRERAS--------------------------------
+
+CREATE TABLE carrera (
+    id_carrera SERIAL PRIMARY KEY,
+    nombre_carrera varchar(150) NOT NULL
+);
+
+INSERT INTO carrera (nombre_carrera)
+VALUES ('ingenieria electrica'),
+('ingeniera mecatronica'),
+('ingenieria de sistemas'),
+('ingenieria industrial'),
+('ingenieria biomedica'),
+('ingenieria aeronautica'),
+('ingeniera quimica'),
+('ingeniera fisica'),
+('ingenieria mecanica'),
+('ingenieria electronica'),
+('ingeniera agricola'),
+('ingeniera de maderas'),
+('ingenieria agroindustrial'),
+('ingenieria civil'),
+('ingeneria Software'),
+('licenciatura en matematicas'),
+('licenciatura en estadistica'),
+('licenciatura en astronomia'),
+('contabilidad'),
+('administracion de empresas'),
+('marketing'),
+('negocios internacionales');
+
+-------------------------------GRUPOS ETNICOS--------------------------------
+
+CREATE TABLE grupo_etnico (
+    id_grupo_etnico SERIAL PRIMARY KEY,
+    nombre_etnico varchar(150) NOT NULL
+);
+
+INSERT INTO grupo_etnico (nombre_etnico)
+VALUES ('indigena'),
+('afrocolombi@'),
+('raizal'),
+('palenquero'),
+('gitano'),
+('ninguno');
 
