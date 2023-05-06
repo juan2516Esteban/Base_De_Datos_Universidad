@@ -1,17 +1,17 @@
-create table "Sisben" (Id_sisben serial, Grupo varchar); 
+create table "Sisben" (Id_sisben serial primary key not null, Grupo varchar); 
 
 insert into "Sisben" (Grupo) values ('Grupo A'),
-('Grupo B'), ('Grupo C') , ('Grupo D') , ('No pertenece')
+('Grupo B'), ('Grupo C') , ('Grupo D') , ('No pertenece');
 
-select * from "Sisben"
 
-create table "Jornada" (Id_Jornada serial, Nombre varchar)
+
+create table "Jornada" (Id_Jornada serial primary key not null, Nombre varchar)
 insert into "Jornada" (Nombre) values ('Diurna'), ('Nocturna'),
 ('Ambas')
 
 select * from "Jornada"
 
-create table rol_administrativo  (id_rol serial , nombre varchar);
+create table rol_administrativo  (id_rol serial primary key not null, nombre varchar);
 
 insert into rol_administrativo (Nombre) values('Secretario Academico'), ('Gerente de Recursos Humanos'),
 ('Gerente Financiero') , ('Director de Comunicaciones') , ('Gestor de Marketing') , 
@@ -126,8 +126,8 @@ INSERT INTO Municipios (municipio, departamento) VALUES
 
 ----------------------------------------Fabian-------------------------------------------------
 
-CREATE TABLE victimas(
-id_victimas int NOT NULL AUTO_INCREMENT,
+CREATE TABLE victimas (
+id_victimas int serial,
     PRIMARY KEY(id_victimas),
 nombre_victimas varchar(150) NOT NULL
 )
