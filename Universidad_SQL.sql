@@ -284,7 +284,48 @@ id_discapacidad,sueldo,correo_electronico,id_grupo_etnico,celular,id_jornada,
 id_facultad,id_municipio,doctorado,id_tipo_sangre,id_sisben)
 
 values('Juan Esteban','Salazar Londoño','Calle 12 #23-45','1938756209',8,9,3000000,
-'juan.salazar@gmail.com',6,3101234567,1,1,14,FALSE,1,1)
+'juan.salazar@gmail.com',6,'3101234567',1,1,14,FALSE,1,1),
+
+('Ana','Rodriguez Garcia','Carrera 7 #45-67','1984265307',1,9,2500000,
+'ana.rodriguez@gmail.com',6,'3202345678',1,3,14,FALSE,2,2),
+
+('Carlos','Perez Gomez','Calle 54 #34-12','1973485620',3,1,4000000,
+'carlos.perez@gmail.com',6,'3153456789',1,3,14,FALSE,3,3),
+
+('Maria','Sanchez Rodriguez','Carrera 12 #32-45','1924758360',16,5,3500000,
+'maria.sanchez@outlook.com',6,'3104567890',1,1,14,FALSE,3,5),
+
+('Luis','Hernandez Vasquez','Calle 23 #56-78','1947682053',3,9,2800000,
+'luis.hernandez@outlook.com',3,'3205678901',2,1,14,FALSE,4,5),
+
+('Andrea','Lopez Montoya','Carrera 8 #23-56','1983506271',2,6,3200000,
+'andrea.lopez@gmail.com',5,'3156789012',3,2,14,TRUE,5,5),
+
+('Juan','Gomez Perez','Calle 34 #67-89','1962874530',3,9,4500000,
+'juan.gomez@gmail.com',1,'3107890123',3,2,14,FALSE,6,5),
+
+('Carolina','Garcia Ortiz','Carrera 5 #12-34','1927358460',16,9,2700000,
+'carolina.garcia@outlook.com',6,'3208901234',3,2,14,FALSE,7,5),
+
+('Sergio','Ruiz Castro','Calle 67 #45-23','1914375862',16,9,3100000,
+'sergio.ruiz@outlook.com',6,'3159012345',3,2,14,FALSE,8,5),
+
+('Laura','Ramirez Torres','Carrera 10 #43-21','1990724635',19,5,3400000,
+'laura.ramirez@gmail.com',6,'3100123456',3,3,14,TRUE,1,5)
+
+---------pruebas llave foranea ----------
+
+select prof.nombre,prof.apellido, carer.nombre_carrera ,d.tipo_discapacidad , grup.nombre_etnico,
+jor.nombre, facul.nombre_facultad , muni.municipio, muni.departamento , tps.tipo , sis.grupo from profesores prof
+left join carrera carer on  id_titulo_universitario = id_carrera
+left join discapacidades d on prof.id_discapacidad = d.id_discapacidad
+left join grupo_etnico grup on  prof.id_grupo_etnico = grup.id_grupo_etnico
+left join jornada jor on prof.id_jornada = jor.id_jornada
+left join facultades facul on prof.id_facultad = facul.id_facultad
+left join municipios muni on prof.id_municipio = muni.id_municipio
+left join tipo_sangre tps on prof.id_tipo_sangre = tps.id_tipo_sangre
+left join sisben sis on prof.id_sisben = sis.id_sisben
+
 
 
 
