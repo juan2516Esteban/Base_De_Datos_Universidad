@@ -235,7 +235,7 @@ select * from grupo_etnico
 
 create table "profesores" (id_profesor serial primary key, nombre varchar(30), apellido varchar(30), 
 dirección varchar(45), documento varchar(20),
-sueldo float, correo_electronico varchar(70),celular int, doctorado boolean) 
+sueldo integer, correo_electronico varchar(70),celular varchar, doctorado boolean) 
 
 alter table profesores add column id_titulo_universitario integer,
 add constraint id_carrera_foreing_key 
@@ -285,5 +285,6 @@ id_facultad,id_municipio,doctorado,id_tipo_sangre,id_sisben)
 
 values('Juan Esteban','Salazar Londoño','Calle 12 #23-45','1938756209',8,9,3000000,
 'juan.salazar@gmail.com',6,3101234567,1,1,14,FALSE,1,1)
+
 
 
