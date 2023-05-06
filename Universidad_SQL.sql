@@ -1,15 +1,21 @@
-create table "Sisben" (Id_sisben serial primary key not null, Grupo varchar); 
+create table "sisben" (Id_sisben serial primary key not null, Grupo varchar); 
 
-insert into "Sisben" (Grupo) values ('Grupo A'),
+insert into "sisben" (Grupo) values ('Grupo A'),
 ('Grupo B'), ('Grupo C') , ('Grupo D') , ('No pertenece');
 
+create table tipo_sangre (id_tipo_sangre serial primary key, tipo varchar)
 
+insert into tipo_sangre (tipo) values ('A+') , ('O+') , ('B+') , ('AB+') , ('A-'),
+('O-') , ('B-') , ('AB-')
 
-create table "Jornada" (Id_Jornada serial primary key not null, Nombre varchar)
-insert into "Jornada" (Nombre) values ('Diurna'), ('Nocturna'),
+select * from tipo_sangre
+
+create table "jornada" (id_jornada serial primary key not null, Nombre varchar)
+
+insert into "jornada" (Nombre) values ('Diurna'), ('Nocturna'),
 ('Ambas')
 
-select * from "Jornada"
+select * from "jornada"
 
 create table rol_administrativo  (id_rol serial primary key not null, nombre varchar);
 
@@ -221,4 +227,63 @@ VALUES ('indigena'),
 ('palenquero'),
 ('gitano'),
 ('ninguno');
+
+select * from grupo_etnico 
+
+
+--------------------------------Tabla_Detalle_Profesores----------------------------------------
+
+create table "profesores" (id_profesor serial primary key, nombre varchar(30), apellido varchar(30), 
+dirección varchar(45), documento varchar(20),
+sueldo float, correo_electronico varchar(70),celular int, doctorado boolean) 
+
+alter table profesores add column id_titulo_universitario integer,
+add constraint id_carrera_foreing_key 
+foreign key(id_titulo_universitario)
+references carrera(id_carrera)
+
+alter table profesores add column id_discapacidad integer, 
+add constraint id_discapacidad_foreing_key
+foreign key(id_discapacidad) 
+references discapacidades(id_discapacidad)
+
+alter table profesores add column id_grupo_etnico integer,
+add constraint id_grupo_etnico_foreing_key 
+foreign key (id_grupo_etnico)
+references grupo_etnico(id_grupo_etnico)
+
+alter table profesores add column id_jornada integer,
+add constraint id_jornada_foreing_key 
+foreign key (id_jornada)
+references Jornada(id_jornada)
+
+alter table profesores add column id_facultad integer,
+add constraint id_facultad_foreing_key 
+foreign key (id_facultad)
+references facultades(id_facultad)
+
+alter table profesores add column id_municipio integer,
+add constraint id_municipio_foreing_key 
+foreign key (id_municipio)
+references municipios(id_municipio)
+
+alter table profesores add column id_tipo_sangre integer,
+add constraint id_tipo_sangre_foreing_key 
+foreign key (id_tipo_sangre)
+references tipo_sangre(id_tipo_sangre)
+
+alter table profesores add column id_sisben integer,
+add constraint id_sisben_foreing_key 
+foreign key (id_sisben)
+references sisben(id_sisben)
+
+select * from profesores
+
+insert into profesores (nombre,apellido,dirección,documento,id_titulo_universitario,
+id_discapacidad,sueldo,correo_electronico,id_grupo_etnico,celular,id_jornada,
+id_facultad,id_municipio,doctorado,id_tipo_sangre,id_sisben)
+
+values('Juan Esteban','Salazar Londoño','Calle 12 #23-45','1938756209',8,9,3000000,
+'juan.salazar@gmail.com',6,3101234567,1,1,14,FALSE,1,1)
+
 
