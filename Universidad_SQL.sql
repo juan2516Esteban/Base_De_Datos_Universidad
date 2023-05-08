@@ -1,7 +1,10 @@
+---------------Sisben--------------------
 create table "sisben" (Id_sisben serial primary key not null, Grupo varchar); 
 
 insert into "sisben" (Grupo) values ('Grupo A'),
 ('Grupo B'), ('Grupo C') , ('Grupo D') , ('No pertenece');
+
+---------------------TipoDeSangre-----------------------
 
 create table tipo_sangre (id_tipo_sangre serial primary key, tipo varchar)
 
@@ -10,12 +13,16 @@ insert into tipo_sangre (tipo) values ('A+') , ('O+') , ('B+') , ('AB+') , ('A-'
 
 select * from tipo_sangre
 
+------------------Jornada-----------------------
+
 create table "jornada" (id_jornada serial primary key not null, Nombre varchar)
 
 insert into "jornada" (Nombre) values ('Diurna'), ('Nocturna'),
 ('Ambas')
 
 select * from "jornada"
+
+------------------RolAdministrativo--------------------
 
 create table rol_administrativo  (id_rol serial primary key not null, nombre varchar);
 
@@ -364,6 +371,33 @@ values('Maria','Hernandez','Calle 14 #23',1,6,'maria.hernandez@gmail.com',
  '7:30:00','16:30:00',6000000.0,3,'3186543212',18)
 
 select * from decanos
+
+---------------Curso-----------------------
+
+create table curso (id_curso serial,nombre varchar(15))
+
+alter table curso add column id_asignatura integer,
+add constraint id_asignatura_foreing_key
+foreign key(id_asignatura)
+references asignatura(id_asignatura)
+
+alter table curso add column id_profesor integer,
+add constraint id_profesor_foreing_key
+foreign key(id_profesor)
+references profesores(id_profesor)
+
+insert into curso (nombre,id_asignatura,id_profesor)
+
+values('TS4CAL1',1,6),('TS5CAL1',1,8),('TS6CAL1',1,10),
+('TS4CAL2',2,6),('TS5CAL2',2,8),('TS6CAL2',2,10),
+('TS6CAL3',3,1),('TS6CAL3',3,4),('TS6CAL3',3,9),
+('TS6CAL4',4,1),('TS6CAL4',4,4),('TS6CAL4',4,9),
+('TS7PRO1',5,3),('TS7PRO2',6,3),('TS8DIB1',7,6),
+('TS8DIB2',8,6),('TS9ESTD1',9,7),('TS9ESTD2',10,7),
+('TS10ELET1',11,2),('TS10ELET2',12,2),('TS11AGL',13,5),
+('TS12FIS1',14,5),('TS12FIS2',15,5)
+
+select * from curso
 
 
 
