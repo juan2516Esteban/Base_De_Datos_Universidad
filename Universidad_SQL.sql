@@ -326,6 +326,7 @@ left join municipios muni on prof.id_municipio = muni.id_municipio
 left join tipo_sangre tps on prof.id_tipo_sangre = tps.id_tipo_sangre
 left join sisben sis on prof.id_sisben = sis.id_sisben
 
+--hola
 
 
 
