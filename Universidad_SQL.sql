@@ -326,6 +326,135 @@ left join municipios muni on prof.id_municipio = muni.id_municipio
 left join tipo_sangre tps on prof.id_tipo_sangre = tps.id_tipo_sangre
 left join sisben sis on prof.id_sisben = sis.id_sisben
 
+----------------------------------------ESTUDIANTES----------------------------------
+create table estudiantes(
+	id_estudiante serial primary key,
+	nombre varchar(30),
+	apellido varchar(30),
+	direccion varchar(30),
+	semestre int,
+	correo_electronico varchar(30),
+	celular varchar(20),
+	documento varchar(20),
+	bono_transporte boolean
+);
+
+alter table estudiantes add column id_municipio integer,
+add constraint id_municipio_foreing_key 
+foreign key (id_municipio)
+references municipios(id_municipio)
+
+alter table estudiantes add column id_tipo_sangre integer,
+add constraint id_tipo_sangre_foreing_key 
+foreign key (id_tipo_sangre)
+references tipo_sangre(id_tipo_sangre)
+
+alter table estudiantes add column id_discapacidad integer, 
+add constraint id_discapacidad_foreing_key
+foreign key(id_discapacidad) 
+references discapacidades(id_discapacidad)
+
+alter table estudiantes add column id_sisben integer,
+add constraint id_sisben_foreing_key 
+foreign key (id_sisben)
+references sisben(id_sisben)
+
+alter table estudiantes add column id_grupo_etnico integer,
+add constraint id_grupo_etnico_foreing_key 
+foreign key (id_grupo_etnico)
+references grupo_etnico(id_grupo_etnico)
+
+alter table estudiantes add column id_bono_alimenticio integer,
+add constraint id_bono_alimenticio_foreing_key 
+foreign key (id_bono_alimenticio)
+references bono_alimenticio(id_bono_alimenticio)
+
+alter table estudiantes add column id_carrera integer,
+add constraint id_carrera_foreign_key
+foreign key (id_carrera)
+references carrera(id_carrera)
+
+alter table estudiantes add column id_jornada integer,
+add constraint id_jornada_foreing_key 
+foreign key (id_jornada)
+references jornada(id_jornada)
+
+insert into estudiantes(nombre, apellido, direccion, id_municipio, id_tipo_sangre, semestre,
+						correo_electronico, celular,documento, id_discapacidad,
+						id_sisben, id_grupo_etnico, id_jornada,
+						id_bono_alimenticio, bono_transporte,id_carrera)
+values
+('Ana', 'Garcia', 'Calle 12 #23-45', 14, 1, 4, 'ana.garcia@mail.com', '3115550101', '1112233344', 2, 1, 2, 1, 1, True, 1),	
+('Juan', 'Perez', 'Carrera 34 #56-78', 14, 2, 2, 'juan.perez@gmail.com', '3102229876', '2223344455', 3, 2, 3, 2, 2, False, 5),
+('Maria', 'Hernandez', 'Avenida 7 #8-90', 14, 3, 3, 'maria.hernandez@outlook.com', '3151234567', '3334422211', 2, 1, 3, 1, 3, True, 20),
+('Carlos', 'Rodriguez', 'Calle 15 #30-20', 14, 2, 5, 'carlos.rodriguez@yahoo.com', '3209876543', '4445566677', 9, 1, 4, 1, 4, True, 22),
+('Sofia', 'Gomez', 'Calle 18 #14-35', 14, 1, 1, 'sofia.gomez@icloud.com', '3172345678', '5554433221', 6, 3, 2, 2, 4, True, 5),
+('Diego', 'Torres', 'Carrera 56 #12-34', 14, 4, 4, 'diego.torres@student.com', '3107778888', '6667778889', 1, 5, 4, 1, 1, True, 6),
+('Laura', 'Castro', 'Avenida 9 #6-78', 18, 5, 2, 'laura.castro@outlook.com', '3149876543', '7778889990', 2, 5, 4, 1, 1, False, 10),
+('Fabian', 'Sanchez', 'Carrera 23 #45-56', 18, 2, 3, 'fabian.sanchez@hmail.com', '3156789012', '8889990001', 8, 4, 5, 2, 3, True, 2),
+('Paula', 'Vargas', 'Calle 40 #67-89', 18, 1, 5, 'paula.vargas@ymail.com', '3123456789', '9990001112', 3, 3, 4, 1, 3, False, 2),
+('Oscar', 'Rueda', 'Avenida 6 #4-56', 27, 8, 1, 'oscar.rueda@student.com', '3181234567', '1112223334', 1, 5, 2, 2, 3, False, 5);
+
+select * from estudiantes
+
+-------------------------------------------PRUEBA LLAVE FORANEA ESTUDIANTES--------------------------
+--municipio
+select est.id_estudiante, est.nombre, mun.id_municipio, mun.municipio
+from estudiantes est
+left join municipios mun
+on est.id_municipio = mun.id_municipio
+order by est.id_estudiante asc;
+
+--tipo sangre
+select est.id_estudiante, est.nombre, sangre.id_tipo_sangre, sangre.tipo
+from estudiantes est
+left join tipo_sangre sangre
+on est.id_tipo_sangre = sangre.id_tipo_sangre
+order by est.id_estudiante asc;
+
+--discapacidad
+select est.id_estudiante, est.nombre, disc.id_discapacidad, disc.tipo_discapacidad
+from estudiantes est
+left join discapacidades disc
+on est.id_discapacidad = disc.id_discapacidad
+order by est.id_estudiante asc;
+
+--sisben
+select est.id_estudiante, est.nombre, sis.id_sisben, sis.grupo
+from estudiantes est
+left join sisben sis
+on est.id_sisben = sis.id_sisben
+order by est.id_estudiante asc;
+
+--grupo etnico
+select est.id_estudiante, est.nombre, etn.id_grupo_etnico, etn.nombre_etnico
+from estudiantes est
+left join grupo_etnico etn
+on est.id_grupo_etnico = etn.id_grupo_etnico
+order by est.id_estudiante asc;
+
+--jornada
+select est.id_estudiante, est.nombre, jor.id_jornada, jor.nombre
+from estudiantes est
+left join jornada jor
+on est.id_jornada = jor.id_jornada
+order by est.id_jornada asc;
+
+--bono alimenticio
+select est.id_estudiante, est.nombre, jor.id_jornada, jor.nombre
+from estudiantes est
+left join jornada jor
+on est.id_jornada = jor.id_jornada
+order by est.id_jornada asc;
+
+
+
+
+
+
+--------------------------------------ADMINISTRATIVOS-------------------------------
+
+
 
 
 
