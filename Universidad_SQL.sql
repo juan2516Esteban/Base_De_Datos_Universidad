@@ -235,7 +235,7 @@ select * from grupo_etnico
 
 create table "profesores" (id_profesor serial primary key, nombre varchar(30), apellido varchar(30), 
 dirección varchar(45), documento varchar(20),
-sueldo integer, correo_electronico varchar(70),celular varchar, doctorado boolean) 
+sueldo float, correo_electronico varchar(70),celular varchar, doctorado boolean) 
 
 alter table profesores add column id_titulo_universitario integer,
 add constraint id_carrera_foreing_key 
@@ -326,7 +326,46 @@ left join municipios muni on prof.id_municipio = muni.id_municipio
 left join tipo_sangre tps on prof.id_tipo_sangre = tps.id_tipo_sangre
 left join sisben sis on prof.id_sisben = sis.id_sisben
 
---hola
+----------Deacanos------------
+
+create table "decanos" (id serial,nombre varchar(50), apellido varchar(50),direccón varchar(50), 
+correo_electronico varchar(70), hora_entrada time, hora_salida time,sueldo float , celular varchar)
+
+alter table decanos add column id_tipo_sangre integer,
+add constraint id_tipo_sangre_foreing_key 
+foreign key (id_tipo_sangre)
+references tipo_sangre(id_tipo_sangre)
+
+alter table decanos add column id_grupo_etnico integer,
+add constraint id_grupo_etnico_foreing_key 
+foreign key (id_grupo_etnico)
+references grupo_etnico(id_grupo_etnico)
+
+alter table decanos add column id_facultad integer,
+add constraint id_facultad_foreing_key 
+foreign key (id_facultad)
+references facultades(id_facultad)
+
+alter table decanos add column id_municipio integer,
+add constraint id_municipio_foreing_key 
+foreign key (id_municipio)
+references municipios(id_municipio)
+
+insert into decanos (nombre,apellido,direccón,id_tipo_sangre,id_grupo_etnico,
+correo_electronico,hora_entrada,hora_salida,sueldo,id_facultad,celular,id_municipio)
+
+values('Maria','Hernandez','Calle 14 #23',1,6,'maria.hernandez@gmail.com',
+'8:00:00','17:00:00',6000000.0,1,'3209876543',14),
+
+('Juan','Martinez','Calle 25-22 #56',6,6,'juan.martinez@hotmail.com',
+'9:00:00','18:00:00',6000000.0,2,'3118765432',14),
+
+('Ana','Gonzalez','Calle 27-35 #59',1,6,'ana.gonzalez@gmail.com',
+ '7:30:00','16:30:00',6000000.0,3,'3186543212',18)
+
+select * from decanos
+
+
 
 
 
