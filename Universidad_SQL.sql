@@ -521,6 +521,60 @@ on est.id_jornada = jor.id_jornada
 order by est.id_jornada asc;
 
 --------------------------------------ADMINISTRATIVOS-------------------------------
+create table administrativos(
+	id_administrativo serial primary key,
+	nombre varchar (30),
+	apellido varchar (30),
+	direccion varchar (30),
+	correo_electronico varchar(30),
+	hora_entrada time, 
+	hora_salida time,
+	sueldo numeric(10,2),
+	celular varchar(20)
+);
+alter table administrativos add column id_tipo_sangre integer,
+add constraint id_tipo_sangre_foreing_key 
+foreign key (id_tipo_sangre)
+references tipo_sangre(id_tipo_sangre)
+
+alter table administrativos add column id_grupo_etnico integer,
+add constraint id_grupo_etnico_foreing_key 
+foreign key (id_grupo_etnico)
+references grupo_etnico(id_grupo_etnico)
+
+alter table administrativos add column id_facultad integer,
+add constraint id_facultad_foreing_key 
+foreign key (id_facultad)
+references facultades(id_facultad)
+
+ALTER TABLE rol_administrativo
+ADD CONSTRAINT rol_administrativo_id_rol_unique UNIQUE (id_rol);
+ALTER TABLE administrativos
+ADD COLUMN id_rol INTEGER,
+ADD CONSTRAINT id_rol_foreign_key
+FOREIGN KEY (id_rol)
+REFERENCES rol_administrativo (id_rol)
+						 
+alter table administrativos add column id_municipio integer,
+add constraint id_municipio_foreing_key 
+foreign key (id_municipio)
+references municipios(id_municipio)
+
+INSERT INTO administrativos (nombre, apellido, direccion, id_tipo_sangre, 
+							 id_grupo_etnico, correo_electronico, hora_entrada,
+							 hora_salida, sueldo, id_facultad, celular, id_rol, id_municipio)
+VALUES ('Juan', 'Pérez', 'Carrera 8 # 23-80', 1, 6, 'jperez@gmail.com', '8:00', '16:00', 1500000.00, 2, '3012345678', 1, 14),
+       ('María', 'García', 'Calle 19 # 5-34', 2, 6, 'mgarcia@gmail.com', '9:00', '17:00', 1700000.00, 3, '3109876543', 1, 14),
+       ('Luis', 'González', 'Avenida 30 de Agosto # 10-01', 2, 6, 'lgonzalez@gmail.com', '8:30', '16:30', 2000000.00, 2, '3154567890', 2, 14),
+       ('Ana', 'López', 'Calle 11 # 3-40', 4, 6, 'alopez@gmail.com', '10:00', '18:00', 2000000.00, 2, '3181234567', 3, 14),
+       ('Roberto', 'Ramírez', 'Carrera 15 # 23-12', 5, 6, 'rramirez@gmail.com', '9:30', '17:30', 1500000.00, 1, '3207890123', 2, 14),
+       ('Sofia', 'Cruz', 'Calle 17 # 5-18', 6, 6, 'scruz@gmail.com', '9:00', '17:00', 1200000.00, 1, '3212345678', 4, 14),
+       ('Daniel', 'García', 'Avenida Sur # 4-25', 6, 4, 'dgarcia@gmail.com', '8:00', '16:00', 1450000.00, 1, '3238901234', 7, 14),
+       ('Andrea', 'González', 'Carrera 7 # 11-20', 7, 6, 'agonzalez@gmail.com', '10:00', '18:00', 1700000.00, 1, '3245678901', 6, 14),
+       ('Juanita', 'López', 'Calle 25 # 8-51', 1, 6, 'jlopez@gmail.com', '9:00', '17:00', 2000000.00, 3, '3251234567', 5, 14),
+       ('Ricardo', 'Ramírez', 'Carrera 9 # 16-18', 1, 6, 'rramirez2@gmail.com', '8:30', '16:30', 2000000.00, 1, '3278901234', 7, 14);
+
+select * from administrativos
 
 
 
