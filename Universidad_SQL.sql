@@ -777,10 +777,22 @@ insert into Calificaciones (id_estudiante,id_curso,nota) values
 select * from Calificaciones
 
 
+----------------ViewProfesores---------------------------
 
+create view viewProfesores as
+select prof.nombre,prof.apellido,carer.nombre_carrera as carrera,d.tipo_discapacidad as Discapacidad, 
+grup.nombre_etnico as Grupo_Etnico,jor.nombre as Jornada, facul.nombre_facultad as Facultad, 
+muni.municipio, muni.departamento , tps.tipo as Tipo_De_Sangre, sis.grupo as Sisben from profesores prof
+left join carrera carer on  id_titulo_universitario = id_carrera
+left join discapacidades d on prof.id_discapacidad = d.id_discapacidad
+left join grupo_etnico grup on  prof.id_grupo_etnico = grup.id_grupo_etnico
+left join jornada jor on prof.id_jornada = jor.id_jornada
+left join facultades facul on prof.id_facultad = facul.id_facultad
+left join municipios muni on prof.id_municipio = muni.id_municipio
+left join tipo_sangre tps on prof.id_tipo_sangre = tps.id_tipo_sangre
+left join sisben sis on prof.id_sisben = sis.id_sisben
 
-
-
+select * from viewProfesores
 
 
 
