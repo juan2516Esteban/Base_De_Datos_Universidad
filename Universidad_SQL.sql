@@ -335,7 +335,7 @@ left join sisben sis on prof.id_sisben = sis.id_sisben
 
 ----------Deacanos------------
 
-create table "decanos" (id serial,nombre varchar(50), apellido varchar(50),direccón varchar(50), 
+create table "decanos" (id serial,nombre varchar(50), apellido varchar(50),dirección varchar(50), 
 correo_electronico varchar(70), hora_entrada time, hora_salida time,sueldo float , celular varchar)
 
 alter table decanos add column id_tipo_sangre integer,
@@ -374,7 +374,7 @@ select * from decanos
 
 ---------------Curso-----------------------
 
-create table curso (id_curso serial,nombre varchar(15))
+create table curso (id_curso serial primary key,nombre varchar(15))
 
 alter table curso add column id_asignatura integer,
 add constraint id_asignatura_foreing_key
@@ -685,119 +685,106 @@ select * from horarios
 
 
 
------------------------------------------MATRICULAS
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-----------------------------------------MATRICULAS------------------
+
+CREATE TABLE Matriculas(id_matriculas serial PRIMARY KEY,
+valor_matriculas float)
+
+ALTER TABLE Matriculas ADD column id_carrera integer, 
+ADD CONSTRAINT id_carrera_foreign_key
+FOREIGN KEY (id_carrera)
+REFERENCES carrera(id_carrera)
+
+ALTER TABLE Matriculas ADD column id_facultad integer, 
+ADD CONSTRAINT id_facultad_foreign_key
+FOREIGN KEY (id_facultad)
+REFERENCES facultades(id_facultad)
+
+insert into Matriculas (id_carrera,id_facultad,valor_matriculas) values (1,1,30000000),(2,1,30000000)
+,(3,1,2700000),(4,1,3500000),(5,1,5000000)
+,(6,1,6000000),(7,1,2500000),(8,1,3000000)
+,(9,1,3500000),(10,1,3500000),(11,1,3000000)
+,(12,1,2000000),(13,1,2500000),(14,1,4000000)
+,(15,1,3000000),(16,2,2000000),(17,2,2000000)
+,(18,2,4000000),(19,3,2500000),(20,3,2700000)
+,(21,3,2500000),(22,3,2759999)
+
+select * from Matriculas
 
 ------------------------------------------CALIFICACIONES------------------------------------
 
+CREATE TABLE Calificaciones(id_calificacion serial PRIMARY KEY,
+nota float)
+
+ALTER TABLE Calificaciones ADD column id_estudiante integer, 
+ADD CONSTRAINT id_estudiante_foreign_key
+FOREIGN KEY (id_estudiante)
+REFERENCES estudiantes(id_estudiante)
+
+ALTER TABLE Calificaciones ADD column id_curso integer, 
+ADD CONSTRAINT id_curso_foreign_key
+FOREIGN KEY (id_curso)
+REFERENCES curso(id_curso)
+
+insert into Calificaciones (id_estudiante,id_curso,nota) values 
+(1,7,5),(1,14,4.0),(1,16,2.5),(1,17,2.2)
+,(2,4,4.0),(2,13,1.0),(2,15,2.0),(2,19,3.5)
+,(3,7,3.0),(3,23,3.2),(3,20,3.4),(3,21,4.9)
+,(4,12,1.2),(4,14,4.0),(4,16,1.8),(4,23,2.9)
+,(5,1,4.7),(5,13,4.6),(5,19,2.8),(5,22,2.3)
+,(6,12,1.6),(6,14,2.7),(6,21,4.9),(6,23,1.3)
+,(7,5,2.6),(7,21,1.5),(7,17,2.2),(7,16,3.0)
+,(8,9,2.0),(8,14,3.3),(8,18,1.2),(8,21,1.1)
+,(9,20,4.7),(9,23,1.6),(9,14,1.7),(9,13,2.5)
+,(10,1,1.4),(10,13,4.5),(10,19,3.8),(10,22,4.8)
 
 
+select * from Calificaciones
 
 
+----------------ViewProfesores---------------------------
 
+create view viewProfesores as
+select prof.id_profesor,prof.nombre,prof.apellido,carer.nombre_carrera as carrera,d.tipo_discapacidad as Discapacidad, 
+grup.nombre_etnico as Grupo_Etnico,jor.nombre as Jornada, facul.nombre_facultad as Facultad, 
+muni.municipio, muni.departamento , tps.tipo as Tipo_De_Sangre, sis.grupo as Sisben from profesores prof
+left join carrera carer on  id_titulo_universitario = id_carrera
+left join discapacidades d on prof.id_discapacidad = d.id_discapacidad
+left join grupo_etnico grup on  prof.id_grupo_etnico = grup.id_grupo_etnico
+left join jornada jor on prof.id_jornada = jor.id_jornada
+left join facultades facul on prof.id_facultad = facul.id_facultad
+left join municipios muni on prof.id_municipio = muni.id_municipio
+left join tipo_sangre tps on prof.id_tipo_sangre = tps.id_tipo_sangre
+left join sisben sis on prof.id_sisben = sis.id_sisben
+order by id_profesor asc
 
+select * from viewProfesores
 
+-----------------ViewDecanos-----------------------
 
+create view viewDecanos as
+select Deca.id ,Deca.nombre, Deca.apellido, Deca.dirección, tp.tipo as Tipo_De_Sangre,
+gpe.nombre_etnico as Grupo_Etnico, Deca.correo_electronico, Deca.hora_entrada,
+Deca.hora_salida, Deca.sueldo, facul.nombre_facultad as facultad, muni.municipio,
+muni.departamento,Deca.celular from decanos Deca 
+left join tipo_sangre tp on Deca.id_tipo_sangre = tp.id_tipo_sangre
+left join grupo_etnico gpe on Deca.id_grupo_etnico = gpe.id_grupo_etnico
+left join facultades facul on Deca.id_facultad = facul.id_facultad
+left join municipios muni on Deca.id_municipio = muni.id_municipio
+order by Deca.id asc
 
+select * from viewDecanos
 
+---------------ViewCurso---------------------
 
+create view ViewCurso as
+select cur.id_curso, cur.nombre, asig.nombre_asignatura as asignatura,
+prof.nombre as nombre_profesor from curso cur
+left join asignatura asig on cur.id_asignatura = asig.id_asignatura
+left join profesores prof on cur.id_profesor = prof.id_profesor
+order by cur.id_curso asc
+
+select * from ViewCurso
 
 
 
