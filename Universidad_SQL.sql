@@ -335,7 +335,7 @@ left join sisben sis on prof.id_sisben = sis.id_sisben
 
 ----------Deacanos------------
 
-create table "decanos" (id serial,nombre varchar(50), apellido varchar(50),direccón varchar(50), 
+create table "decanos" (id serial,nombre varchar(50), apellido varchar(50),dirección varchar(50), 
 correo_electronico varchar(70), hora_entrada time, hora_salida time,sueldo float , celular varchar)
 
 alter table decanos add column id_tipo_sangre integer,
@@ -794,11 +794,19 @@ left join sisben sis on prof.id_sisben = sis.id_sisben
 
 select * from viewProfesores
 
+-----------------ViewDecanos-----------------------
 
+create view viewDecanos as
+select Deca.nombre, Deca.apellido, Deca.dirección, tp.tipo as Tipo_De_Sangre,
+gpe.nombre_etnico as Grupo_Etnico, Deca.correo_electronico, Deca.hora_entrada,
+Deca.hora_salida, Deca.sueldo, facul.nombre_facultad as facultad, muni.municipio,
+muni.departamento,Deca.celular from decanos Deca 
+left join tipo_sangre tp on Deca.id_tipo_sangre = tp.id_tipo_sangre
+left join grupo_etnico gpe on Deca.id_grupo_etnico = gpe.id_grupo_etnico
+left join facultades facul on Deca.id_facultad = facul.id_facultad
+left join municipios muni on Deca.id_municipio = muni.id_municipio
 
-
-
-
+select * from viewDecanos
 
 
 
