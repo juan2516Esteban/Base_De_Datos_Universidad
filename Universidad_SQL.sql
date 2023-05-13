@@ -780,7 +780,7 @@ select * from Calificaciones
 ----------------ViewProfesores---------------------------
 
 create view viewProfesores as
-select prof.nombre,prof.apellido,carer.nombre_carrera as carrera,d.tipo_discapacidad as Discapacidad, 
+select prof.id_profesor,prof.nombre,prof.apellido,carer.nombre_carrera as carrera,d.tipo_discapacidad as Discapacidad, 
 grup.nombre_etnico as Grupo_Etnico,jor.nombre as Jornada, facul.nombre_facultad as Facultad, 
 muni.municipio, muni.departamento , tps.tipo as Tipo_De_Sangre, sis.grupo as Sisben from profesores prof
 left join carrera carer on  id_titulo_universitario = id_carrera
@@ -791,13 +791,14 @@ left join facultades facul on prof.id_facultad = facul.id_facultad
 left join municipios muni on prof.id_municipio = muni.id_municipio
 left join tipo_sangre tps on prof.id_tipo_sangre = tps.id_tipo_sangre
 left join sisben sis on prof.id_sisben = sis.id_sisben
+order by id_profesor asc
 
 select * from viewProfesores
 
 -----------------ViewDecanos-----------------------
 
 create view viewDecanos as
-select Deca.nombre, Deca.apellido, Deca.dirección, tp.tipo as Tipo_De_Sangre,
+select Deca.id ,Deca.nombre, Deca.apellido, Deca.dirección, tp.tipo as Tipo_De_Sangre,
 gpe.nombre_etnico as Grupo_Etnico, Deca.correo_electronico, Deca.hora_entrada,
 Deca.hora_salida, Deca.sueldo, facul.nombre_facultad as facultad, muni.municipio,
 muni.departamento,Deca.celular from decanos Deca 
@@ -805,11 +806,20 @@ left join tipo_sangre tp on Deca.id_tipo_sangre = tp.id_tipo_sangre
 left join grupo_etnico gpe on Deca.id_grupo_etnico = gpe.id_grupo_etnico
 left join facultades facul on Deca.id_facultad = facul.id_facultad
 left join municipios muni on Deca.id_municipio = muni.id_municipio
+order by Deca.id asc
 
 select * from viewDecanos
 
+---------------ViewCurso---------------------
 
+create view ViewCurso as
+select cur.id_curso, cur.nombre, asig.nombre_asignatura as asignatura,
+prof.nombre as nombre_profesor from curso cur
+left join asignatura asig on cur.id_asignatura = asig.id_asignatura
+left join profesores prof on cur.id_profesor = prof.id_profesor
+order by cur.id_curso asc
 
+select * from ViewCurso
 
 
 
