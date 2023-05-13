@@ -720,7 +720,7 @@ order by est.id_jornada asc;
 
 
 
------------------------------------------MATRICULAS
+-----------------------------------------MATRICULAS------------------
 
 CREATE TABLE Matriculas(id_matriculas serial PRIMARY KEY,
 valor_matriculas float)
