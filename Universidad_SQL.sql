@@ -787,11 +787,20 @@ order by cur.id_curso asc
 select * from ViewCurso
 
 
+--------------------ViewCalificaciones----------------------
 
+create view viewCalificaiones as
+select cali.id_calificacion ,estud.nombre , estud.apellido, estud.documento,cali.nota as calificación,
+cur.nombre as nombre_curso, asig.nombre_asignatura , prof.nombre as nombre_profesor , 
+prof.apellido as apellido_profesor, prof.documento as documento_profesor
+from calificaciones cali
+left join estudiantes estud on cali.id_estudiante =  estud.id_estudiante
+left join curso cur on cali.id_curso = cur.id_curso 
+left join profesores prof on cur.id_profesor = prof.id_profesor
+left join asignatura asig on cur.id_asignatura = asig.id_asignatura
+order by id_calificacion asc
 
-
-
-
+select * from viewCalificaiones
 
 
 
