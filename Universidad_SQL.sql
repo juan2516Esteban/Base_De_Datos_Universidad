@@ -4,6 +4,8 @@ create table "sisben" (Id_sisben serial primary key not null, Grupo varchar);
 insert into "sisben" (Grupo) values ('Grupo A'),
 ('Grupo B'), ('Grupo C') , ('Grupo D') , ('No pertenece');
 
+select * from sisben
+
 ---------------------TipoDeSangre-----------------------
 
 create table tipo_sangre (id_tipo_sangre serial primary key, tipo varchar)
@@ -801,6 +803,21 @@ left join asignatura asig on cur.id_asignatura = asig.id_asignatura
 order by id_calificacion asc
 
 select * from viewCalificaiones
+
+---------------ViewMatriculas----------------------
+
+create view viewMatriculas as
+select matri.id_matriculas, matri.valor_matriculas, carr.nombre_carrera,
+facul.nombre_facultad
+from matriculas matri
+left join carrera carr on matri.id_carrera = carr.id_carrera
+left join facultades facul on matri.id_facultad = facul.id_facultad
+order by matri.id_matriculas asc
+
+select * from viewMatriculas
+
+
+
 
 
 
