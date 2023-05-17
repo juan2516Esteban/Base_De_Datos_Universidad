@@ -812,10 +812,35 @@ left join bono_alimenticio ba on est.id_bono_alimenticio = ba.id_bono_alimentici
 left join carrera car on est.id_carrera = car.id_carrera
 left join Jornada jor on est.id_jornada = jor.id_jornada
 
-
 select * from view_estudiantes
 
 select * from estudiantes
+
+
+---------------------------------VIEW ADMINISTRATIVOS------------------------
+create view view_administrativos as
+select 
+	ad.id_administrativo, ad.nombre, ad.apellido, ad.direccion, ad.correo_electronico,
+	ad.hora_entrada, ad.hora_salida, ad.sueldo, ad.celular, 
+	ts.tipo as tipo_sangre,
+	ge.nombre_etnico as grupo_etnico,
+	fa.nombre_facultad as facultades,
+	rol.nombre as rol_administativo,
+	mun.municipio as municipios
+from administrativos ad
+left join 
+tipo_sangre ts on ad.id_tipo_sangre = ts.id_tipo_sangre
+left join
+grupo_etnico ge on ad.id_grupo_etnico = ge.id_grupo_etnico
+left join
+facultades fa on ad.id_facultad = fa.id_facultad
+left join
+rol_administrativo rol on ad.id_rol = rol.id_rol
+left join 
+municipio mun on ad.id_municipio = mun.id_municipio
+	
+
+select * from administrativos 
 
 
 
