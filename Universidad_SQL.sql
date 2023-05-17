@@ -792,161 +792,32 @@ select * from ViewCurso
 select * from curso
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+--------------------ViewCalificaciones----------------------
+
+create view viewCalificaiones as
+select cali.id_calificacion ,estud.nombre , estud.apellido, estud.documento,cali.nota as calificación,
+cur.nombre as nombre_curso, asig.nombre_asignatura , prof.nombre as nombre_profesor , 
+prof.apellido as apellido_profesor, prof.documento as documento_profesor
+from calificaciones cali
+left join estudiantes estud on cali.id_estudiante =  estud.id_estudiante
+left join curso cur on cali.id_curso = cur.id_curso 
+left join profesores prof on cur.id_profesor = prof.id_profesor
+left join asignatura asig on cur.id_asignatura = asig.id_asignatura
+order by id_calificacion asc
+
+select * from viewCalificaiones
+
+---------------ViewMatriculas----------------------
+
+create view viewMatriculas as
+select matri.id_matriculas, matri.valor_matriculas, carr.nombre_carrera,
+facul.nombre_facultad
+from matriculas matri
+left join carrera carr on matri.id_carrera = carr.id_carrera
+left join facultades facul on matri.id_facultad = facul.id_facultad
+order by matri.id_matriculas asc
+
+select * from viewMatriculas
 
 
 -------------------------------VIEW ESTUDIANTES-----------------------
@@ -1020,34 +891,6 @@ select * from view_horarios
 select * from horarios
 
 
-
-
---------------------ViewCalificaciones----------------------
-
-create view viewCalificaiones as
-select cali.id_calificacion ,estud.nombre , estud.apellido, estud.documento,cali.nota as calificación,
-cur.nombre as nombre_curso, asig.nombre_asignatura , prof.nombre as nombre_profesor , 
-prof.apellido as apellido_profesor, prof.documento as documento_profesor
-from calificaciones cali
-left join estudiantes estud on cali.id_estudiante =  estud.id_estudiante
-left join curso cur on cali.id_curso = cur.id_curso 
-left join profesores prof on cur.id_profesor = prof.id_profesor
-left join asignatura asig on cur.id_asignatura = asig.id_asignatura
-order by id_calificacion asc
-
-select * from viewCalificaiones
-
----------------ViewMatriculas----------------------
-
-create view viewMatriculas as
-select matri.id_matriculas, matri.valor_matriculas, carr.nombre_carrera,
-facul.nombre_facultad
-from matriculas matri
-left join carrera carr on matri.id_carrera = carr.id_carrera
-left join facultades facul on matri.id_facultad = facul.id_facultad
-order by matri.id_matriculas asc
-
-select * from viewMatriculas
 
 
 
