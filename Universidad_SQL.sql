@@ -372,6 +372,9 @@ values('Maria','Hernandez','Calle 14 #23',1,6,'maria.hernandez@gmail.com',
 
 select * from decanos
 
+alter table decanos 
+rename column direccón to direccion;
+
 ---------------Curso-----------------------
 
 create table curso (id_curso serial primary key,nombre varchar(15))
@@ -683,8 +686,6 @@ ORDER BY h.id_hora_curso ASC;
 
 select * from horarios
 
-
-
 -----------------------------------------MATRICULAS------------------
 
 CREATE TABLE Matriculas(id_matriculas serial PRIMARY KEY,
@@ -763,15 +764,16 @@ select * from viewProfesores
 -----------------ViewDecanos-----------------------
 
 create view viewDecanos as
-select Deca.id ,Deca.nombre, Deca.apellido, Deca.dirección, tp.tipo as Tipo_De_Sangre,
-gpe.nombre_etnico as Grupo_Etnico, Deca.correo_electronico, Deca.hora_entrada,
-Deca.hora_salida, Deca.sueldo, facul.nombre_facultad as facultad, muni.municipio,
-muni.departamento,Deca.celular from decanos Deca 
-left join tipo_sangre tp on Deca.id_tipo_sangre = tp.id_tipo_sangre
-left join grupo_etnico gpe on Deca.id_grupo_etnico = gpe.id_grupo_etnico
-left join facultades facul on Deca.id_facultad = facul.id_facultad
-left join municipios muni on Deca.id_municipio = muni.id_municipio
-order by Deca.id asc
+select deca.id ,deca.nombre, deca.apellido, deca.direccion, tp.tipo as Tipo_De_Sangre,
+gpe.nombre_etnico as Grupo_Etnico, deca.correo_electronico, deca.hora_entrada,
+deca.hora_salida, deca.sueldo, facul.nombre_facultad as facultad, muni.municipio,
+muni.departamento,deca.celular 
+from decanos deca 
+left join tipo_sangre tp on deca.id_tipo_sangre = tp.id_tipo_sangre
+left join grupo_etnico gpe on deca.id_grupo_etnico = gpe.id_grupo_etnico
+left join facultades facul on deca.id_facultad = facul.id_facultad
+left join municipios muni on deca.id_municipio = muni.id_municipio
+order by deca.id asc
 
 select * from viewDecanos
 
@@ -785,6 +787,37 @@ left join profesores prof on cur.id_profesor = prof.id_profesor
 order by cur.id_curso asc
 
 select * from ViewCurso
+select * from curso
+
+-------------------------------viewEstudiantes-----------------------
+create view view_estudiantes as
+select 
+	est.id_estudiante, est.nombre, est.apellido, est.direccion, est.semestre, est.correo_electronico,
+	est.celular, est.documento, est.bono_transporte,
+	mun.municipio as municipios,
+	ts.tipo as tipo_sangre,
+	disc.tipo_discapacidad as discapacidades,
+	sis.grupo as Sisben,
+	ge.nombre_etnico as grupo_etnico,
+	ba.valor_bono as bono_alimenticio,
+	car.nombre_carrera as carrera,
+	jor.nombre as Jornada
+from estudiantes est
+left join municipios mun on est.id_municipio = mun.id_municipio
+left join tipo_sangre ts on est.id_tipo_sangre = ts.id_tipo_sangre
+left join discapacidades disc on est.id_discapacidad = disc.id_discapacidad
+left join Sisben sis on est.id_sisben = sis.id_sisben
+left join grupo_etnico ge on est.id_grupo_etnico = ge.id_grupo_etnico
+left join bono_alimenticio ba on est.id_bono_alimenticio = ba.id_bono_alimenticio
+left join carrera car on est.id_carrera = car.id_carrera
+left join Jornada jor on est.id_jornada = jor.id_jornada
+
+
+select * from view_estudiantes
+
+select * from estudiantes
+
+
 
 
 
