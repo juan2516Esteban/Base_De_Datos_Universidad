@@ -837,10 +837,27 @@ facultades fa on ad.id_facultad = fa.id_facultad
 left join
 rol_administrativo rol on ad.id_rol = rol.id_rol
 left join 
-municipio mun on ad.id_municipio = mun.id_municipio
+municipios mun on ad.id_municipio = mun.id_municipio
 	
+select * from view_administrativos
 
 select * from administrativos 
+
+------------------------------view horarios-------------------------------------
+create view view_horarios as
+select 
+	hor.id_hora_curso, hor.hora_inicio, hor.hora_terminada,
+	cur.nombre as curso,
+	dia.nombre_dia as dias
+from horarios hor
+left join 
+curso cur on hor.id_curso = cur.id_curso
+left join 
+dias dia on hor.id_dia = dia.id_dia
+
+select * from view_horarios
+
+select * from horarios
 
 
 
